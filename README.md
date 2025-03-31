@@ -139,4 +139,3 @@ gunicorn --bind 0.0.0.0:8000 clinica_odonto.wsgi
 | `/api/pacientes/`      | POST   | Cria novo paciente      |
 ```
 
-Esse formato está adequado para o GitHub, incluindo todas as seções e informações organizadas de forma clara. Você pode adicionar ou modificar conforme necessário!
