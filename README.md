@@ -1,25 +1,62 @@
-🦷 Sistema de Gestão Odontológica em Django
-📋 Visão Geral
-Sistema completo para gestão de pacientes em clínicas odontológicas com CRUD de pacientes, consultas e tratamentos.
+# 🏥 Sistema de Gestão Odontológica
 
-🚀 Guia de Instalação
-Pré-requisitos
-Python 3.10+
+![Django](https://img.shields.io/badge/Django-5.1-green)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 
-Git
+Um sistema completo para gestão de pacientes em clínicas odontológicas desenvolvido com Django.
 
-PostgreSQL (opcional para produção)
+## 📌 Índice
 
-bash
-Copy
+- [Funcionalidades](#✨-funcionalidades)
+- [Tecnologias](#🛠️-tecnologias)
+- [Instalação](#🚀-instalação)
+- [Estrutura](#📦-estrutura-do-projeto)
+- [Como Contribuir](#🤝-como-contribuir)
+- [Licença](#📄-licença)
+- [Contato](#✉️-contato)
+
+## ✨ Funcionalidades
+
+### 📋 Cadastro de Pacientes
+- **Dados pessoais completos**
+- **Histórico médico**
+- **Contatos e endereço**
+
+### 🗓️ Gestão de Consultas
+- Agendamento automático
+- Lembretes por e-mail
+- Histórico de atendimentos
+
+### 📊 Painel Administrativo
+- Relatórios completos
+- Controle de usuários
+- Dashboard interativo
+
+## 🛠️ Tecnologias
+
+| Tecnologia       | Descrição                          |
+|------------------|------------------------------------|
+| Django 5.1       | Framework backend principal        |
+| Bootstrap 5      | Estilização e componentes frontend |
+| PostgreSQL       | Banco de dados (produção)          |
+| SQLite           | Banco de dados (desenvolvimento)   |
+
+## 🚀 Instalação
+
+### Pré-requisitos
+- Python 3.12+
+- Git
+- Pipenv (opcional)
+
+```bash
 # Clone o repositório
 git clone https://github.com/SudoMaster7/Clinica_Odonto_API.git
 cd Clinica_Odonto_API
 
-# Configure ambiente virtual
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate    # Windows
+# Configure ambiente virtual (opções)
+python -m venv venv       # Opção 1: venv
+pipenv install            # Opção 2: pipenv
 
 # Instale dependências
 pip install -r requirements.txt
@@ -27,121 +64,79 @@ pip install -r requirements.txt
 # Configure o banco de dados
 python manage.py migrate
 
-# Crie superusuário
+# Crie um superusuário
 python manage.py createsuperuser
 
 # Execute o servidor
 python manage.py runserver
-🏗️ Estrutura do Projeto
-Copy
+Acesse no navegador: http://localhost:8000
+```
+
+## 📦 Estrutura do Projeto
+
+```
 clinica_odonto/
-├── pacientes/
-│   ├── migrations/
-│   ├── templates/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   └── views.py
-├── static/
-├── templates/
-└── manage.py
-🔧 Configuração de URLs
-pacientes/urls.py
-python
-Copy
-from django.urls import path
-from .views import (ListaPacientesView, DetalhePacienteView, 
-                   AdicionarPacienteView, EditarPacienteView,
-                   DeletarPacienteView)
+├── pacientes/          # App principal
+│   ├── migrations/     # Migrações do banco
+│   ├── templates/      # Templates HTML
+│   ├── admin.py        # Config admin
+│   ├── models.py       # Modelos de dados
+│   └── views.py        # Lógica de negócio
+├── static/             # Arquivos estáticos
+├── templates/          # Templates base
+├── manage.py           # Script de administração
+└── requirements.txt    # Dependências
+```
 
-app_name = 'pacientes'
+## 🤝 Como Contribuir
 
-urlpatterns = [
-    path('', ListaPacientesView.as_view(), name='lista_pacientes'),
-    path('<int:pk>/', DetalhePacienteView.as_view(), name='detalhe_paciente'),
-    path('adicionar/', AdicionarPacienteView.as_view(), name='adicionar_paciente'),
-    path('<int:pk>/editar/', EditarPacienteView.as_view(), name='editar_paciente'),
-    path('<int:pk>/deletar/', DeletarPacienteView.as_view(), name='deletar_paciente'),
-]
-🧩 Modelo de Paciente
-pacientes/models.py
-python
-Copy
-from django.db import models
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature:
+   ```bash
+   git checkout -b feature/nova-feature
+   ```
+3. Commit suas mudanças:
+   ```bash
+   git commit -m 'Adiciona nova funcionalidade'
+   ```
+4. Push para a branch:
+   ```bash
+   git push origin feature/nova-feature
+   ```
+5. Abra um Pull Request
 
-class Paciente(models.Model):
-    SEXO_CHOICES = [
-        ('M', 'Masculino'),
-        ('F', 'Feminino'),
-        ('O', 'Outro'),
-    ]
-    
-    nome = models.CharField(max_length=100)
-    cpf = models.CharField(max_length=11, unique=True)
-    sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
-    data_nascimento = models.DateField()
-    telefone = models.CharField(max_length=20)
-    email = models.EmailField(blank=True)
-    endereco = models.TextField()
-    alergias = models.TextField(blank=True)
-    ativo = models.BooleanField(default=True)
-    data_cadastro = models.DateTimeField(auto_now_add=True)
+## 📄 Licença
+Distribuído sob licença MIT. Veja LICENSE para mais informações.
 
-    def __str__(self):
-        return self.nome
-🎨 Templates Essenciais
-base.html (Estrutura principal)
-html
-Copy
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{% block title %}Clínica Odontológica{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    {% block content %}{% endblock %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-Run HTML
-lista_pacientes.html (Listagem)
-html
-Copy
-{% extends 'pacientes/base.html' %}
+## ✉️ Contato
 
-{% block content %}
-<table class="table">
-    {% for paciente in pacientes %}
-    <tr>
-        <td>{{ paciente.nome }}</td>
-        <td>
-            <a href="{% url 'pacientes:editar_paciente' paciente.id %}" class="btn btn-sm btn-warning">Editar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-{% endblock %}
-Run HTML
-🔄 Comandos Git para Publicação
-bash
-Copy
-# Inicialize o repositório
-git init
+🔗 Link do Projeto: [https://github.com/SudoMaster7/Clinica_Odonto_API](https://github.com/SudoMaster7/Clinica_Odonto_API)
 
-# Adicione arquivos
-git add .
+---
 
-# Commit inicial
-git commit -m "Initial commit"
+## 🖼️ Screenshots
 
-# Conecte ao GitHub (substitua pela sua URL)
-git remote add origin https://github.com/SudoMaster7/Clinica_Odonto_API.git
+![Tela de Login](/docs/screenshots/login.png)
+![Dashboard](/docs/screenshots/dashboard.png)
 
-# Envie para o repositório
-git push -u origin main
-📝 Licença
-MIT License - Consulte o arquivo LICENSE para detalhes.
+## 🔧 Badges
+
+![GitHub last commit](https://img.shields.io/github/last-commit/SudoMaster7/Clinica_Odonto_API)
+![GitHub issues](https://img.shields.io/github/issues/SudoMaster7/Clinica_Odonto_API)
+
+## 🌐 Configuração para Produção
+
+```bash
+# Exemplo com Gunicorn + Nginx
+gunicorn --bind 0.0.0.0:8000 clinica_odonto.wsgi
+```
+
+## 📋 Tabela de Rotas da API
+
+| Endpoint               | Método | Descrição               |
+|------------------------|--------|-------------------------|
+| `/api/pacientes/`      | GET    | Lista todos pacientes   |
+| `/api/pacientes/`      | POST   | Cria novo paciente      |
+```
+
+Esse formato está adequado para o GitHub, incluindo todas as seções e informações organizadas de forma clara. Você pode adicionar ou modificar conforme necessário!
