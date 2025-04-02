@@ -4,7 +4,8 @@ from .views import (
     DetalhePacienteView,
     AdicionarPacienteView,
     EditarPacienteView,
-    DeletarPacienteView
+    DeletarPacienteView,
+    LoginView
 )
 
 app_name = 'pacientes'  # Namespace para as URLs
@@ -13,6 +14,7 @@ urlpatterns = [
     # Lista todos os pacientes
     path('', ListaPacientesView.as_view(), name='lista_pacientes'),
     
+    path('login/', LoginView.as_view(), name='login'),  # URL para login
     # Detalhes de um paciente específico
     path('<int:pk>/', DetalhePacienteView.as_view(), name='detalhe_paciente'),
     

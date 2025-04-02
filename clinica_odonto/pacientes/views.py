@@ -5,6 +5,26 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin  # Para proteger as views
 from .models import Paciente
 from .forms import PacienteForm
+from django.contrib.auth import authenticate, login
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'pacientes/login.html')
+
+    def post(self, request):
+        # Implementar lógica de autenticação aqui
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Login realizado com sucesso!")
+            return redirect('pacientes:lista_pacientes')
+        else:
+            messages.error(request, "Usuário ou senha inválidos.")
+            return render(request, 'pacientes/login.html')
+        pass
 
 class ListaPacientesView(LoginRequiredMixin, View):
     def get(self, request):
