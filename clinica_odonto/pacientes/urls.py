@@ -12,9 +12,9 @@ app_name = 'pacientes'  # Namespace para as URLs
 
 urlpatterns = [
     # Lista todos os pacientes
-    path('', ListaPacientesView.as_view(), name='lista_pacientes'),
+    path('', LoginView.as_view(), name='login'),
     
-    path('login/', LoginView.as_view(), name='login'),  # URL para login
+    path('pacientes/', ListaPacientesView.as_view(), name='lista_pacientes'),  
     # Detalhes de um paciente específico
     path('<int:pk>/', DetalhePacienteView.as_view(), name='detalhe_paciente'),
     
