@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'pacientes.apps.PacientesConfig',
+    'consultas.apps.ConsultasConfig',
+    'orcamentos.apps.OrcamentosConfig',
+    'pagamentos.apps.PagamentosConfig',
+    'core.apps.CoreConfig',
 ]
 
 REST_FRAMEWORK = {
