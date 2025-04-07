@@ -4,6 +4,11 @@ from pacientes.models import Paciente
 
 # Create your models here.
 class Consulta(models.Model):
+    STATUS_CHOICES = (
+        ('agendada', 'Agendada'),
+        ('realizada', 'Realizada'),
+        ('cancelada', 'Cancelada'),
+    )
     paciente = models.ForeignKey(Paciente , on_delete=models.CASCADE)
     dentista = models.ForeignKey(Dentista , on_delete=models.CASCADE)
     data_hora = models.DateTimeField()

@@ -17,6 +17,10 @@ class Dentista(models.Model):
         return self.nome
 
 class FluxoCaixa(models.Model):
+    TIPO_CHOICES = (
+        ('entrada', 'Entrada'),
+        ('saida', 'Saída'),
+    )
     data = models.DateField()
     descricao = models.CharField(max_length=255)
     valor = models.DecimalField(max_digits=10, decimal_places=2)

@@ -4,6 +4,12 @@ from pacientes.models import Paciente
 
 # Create your models here.
 class Orcamento(models.Model):
+    STATUS_CHOICES = (
+        ('pendente', 'Pendente'),
+        ('aprovado', 'Aprovado'),
+        ('rejeitado', 'Rejeitado'),
+    )
+    id = models.AutoField(primary_key=True)
     data = models.DateTimeField(auto_now_add=True)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     dentista = models.ForeignKey(Dentista, on_delete=models.CASCADE)
