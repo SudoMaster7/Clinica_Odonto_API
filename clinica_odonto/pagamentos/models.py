@@ -6,6 +6,11 @@ from pacientes.models import Paciente
 
 # Create your models here.
 class Pagamento(models.Model):
+    FORMA_PAGAMENTO_CHOICES = (
+        ('pago', 'Pago'),
+        ('pendente', 'Pendente'),
+    )
+    id = models.AutoField(primary_key=True)
     consulta = models.ForeignKey(Consulta, on_delete=models.CASCADE)
     dentista = models.ForeignKey(Dentista, on_delete=models.CASCADE)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
